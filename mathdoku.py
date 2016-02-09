@@ -5,15 +5,11 @@
 #Programme de résolution de Mathdoku (4x4 jusqu'à 9x9)
 #Auteur: ELQATIB
 
-"""J'ai décidé de ne pas utiliser les classes pour mon interface et inclure tout le code dans
-un seul script en utilisant des fonctions 'plus simples' pour la partie interface .."""
-
-
 
 from pylab import *
 from tkinter import *
 import tkinter as tk
-import pickle # Manipuler les Grilles sauvegardées .. ;)
+import pickle
 import itertools as it
 import time
 
@@ -36,7 +32,7 @@ taille=taille_mathdoku.get() # Variable à récupérer, ie : taille de la grille
 """
 """
 
-liste_domaine=list() #Très importante
+liste_domaine=list() 
 coordonnee_bilan=list()
 
 
@@ -105,8 +101,8 @@ def save(): #Sauvegarde d'une grille, là intervient la fonction pickle!
         liste_sauvegarde.dump(liste_domaine)
     sauvegarde.quit()
 
-def upload(): #Chargement d'une grille, en cas d'existence :D
-    num_charge=numero_charge.get() #valeur récupérée lors du clic sur le bouton
+def upload(): #Chargement d'une grille, en cas d'existence
+    num_charge=numero_charge.get()
     nom_charge='sauvegarde mathdoku n° '+ str(num_charge)
     with open(nom_charge,'rb') as fichier_sauvegarde :
         lecture=pickle.load(fichier_sauvegarde)
@@ -210,8 +206,6 @@ print(liste_domaine)
 
 """
 Fin de l'interface
-
-"""
 """
 
 cpt=0 #Compteur d'itérations
@@ -288,7 +282,6 @@ def combinaison(total,domaine): # Fonction " corps " du programme.
 
 
     #Multiplication.
-                #Cas le plus pénible..
 
     for combi_lineaire in it.product(possibilite,repeat=len(domaine)):
         produit_domaine=1
@@ -309,7 +302,7 @@ def combinaison(total,domaine): # Fonction " corps " du programme.
             somme=0 #Ré-initialisation.
             for element in liste_element: #Vérification.
                 somme+=element
-            if (somme==total): #Combinaison royale. (Celle qui marche ^^)
+            if (somme==total): #Combinaison royale.
 
                 combinaison_gg=tuple(liste_element)
                 if (test_ligne_colonne(domaine,combinaison_gg))&(combinaison_gg not in liste_combinaison):
@@ -327,25 +320,6 @@ def combinaison(total,domaine): # Fonction " corps " du programme.
 
 """
 
-#On va maintenant créer et ordonner la liste pour la résolution.
-
-def genèse(liste):
-    var='info_domaine'
-    liste_info=[]
-    for i in range(0,len(liste)):
-        chaine=str(i)
-        liste_info.append(var+chaine)
-        liste_info[i]=(liste[i][1],combinaison(liste[i][0],liste[i][1])) #Coordonnée puis combinaison.
-    liste_domaine_ordonnee=sorted(liste_info,key=lambda x:len(x[1]))
-    return liste_domaine_ordonnee
-
-liste_domaine_ordonnee=genèse(liste_domaine)
-print(liste_domaine_ordonnee)
-
-"""
-
-"""
-
 
 #On va maintenant créer et ordonner la liste pour la résolution.
 
@@ -366,7 +340,7 @@ print(liste_domaine_ordonnee)
 
 """
 
-#Là commence les choses sérieuses, étape de la résolution.
+#étape de la résolution.
 
 def test_remplissage(domaine,combinaison,Matrice):
     matrice=Matrice.copy()
