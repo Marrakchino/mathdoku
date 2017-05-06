@@ -1,10 +1,27 @@
 # -*- coding: iso-8859-1 -*-
 """
+MIT License
 
+Copyright (c) 2017 marrakchino (nabilelqatib@gmail.com)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 """
-#Programme de resolution de Mathdoku (4x4 jusqu'a 9x9)
-#Auteur: ELQATIB
-
 
 from pylab import *
 import Tkinter as Tk
@@ -13,9 +30,6 @@ import itertools as it
 import time
 
 
-"""
-Grille de Mathdoku, taille
-"""
 fenetre_taille=Tk.Tk() #Creation de la fenêtre.
 taille_mathdoku=Tk.IntVar() #Variable de type 'integer' a recuperer.
 fenetre_taille.title('Resolution de Mathdoku')#Titre de la fenêtre.
@@ -27,9 +41,6 @@ Tk.Button(fenetre_taille,text='Valider',command=fenetre_taille.destroy).grid(row
 Tk.Button(fenetre_taille,text='Quitter', fg='Red',command=fenetre_taille.destroy).grid(row=4)
 fenetre_taille.mainloop() #Affichage.
 taille=taille_mathdoku.get() # Variable a recuperer, ie : taille de la grille.
-
-"""
-"""
 
 liste_domaine=list() 
 coordonnee_bilan=list()
