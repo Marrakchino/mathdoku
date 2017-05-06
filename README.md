@@ -9,8 +9,9 @@ This program was part of a CS course (April/May 2014).
 This is a non-exhaustive list of suggestions to improve this program (contributions are welcome!):
 
 - [ ] Rename variables, translate comments.
-- [ ] Improve grid saving/loading (see `tkFileDialog.asksaveasfilename`).
+- [x] Improve grid saving/loading (see `tkFileDialog.asksaveasfilename`).
 - [ ] Use OOP and classes (maybe design patterns also) to improve code quality.
+- [ ] Improve README.
 
 # License
 
