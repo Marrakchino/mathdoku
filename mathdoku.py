@@ -2,13 +2,12 @@
 """
 
 """
-#Programme de résolution de Mathdoku (4x4 jusqu'à 9x9)
+#Programme de resolution de Mathdoku (4x4 jusqu'a 9x9)
 #Auteur: ELQATIB
 
 
 from pylab import *
-from tkinter import *
-import tkinter as tk
+import Tkinter as Tk
 import pickle
 import itertools as it
 import time
@@ -17,17 +16,17 @@ import time
 """
 Grille de Mathdoku, taille
 """
-fenetre_taille=tk.Tk() #Création de la fenêtre.
-taille_mathdoku=IntVar() #Variable de type 'integer' à récupérer.
-fenetre_taille.title('Résolution de Mathdoku')#Titre de la fenêtre.
+fenetre_taille=Tk.Tk() #Creation de la fenêtre.
+taille_mathdoku=Tk.IntVar() #Variable de type 'integer' a recuperer.
+fenetre_taille.title('Resolution de Mathdoku')#Titre de la fenêtre.
 fenetre_taille.geometry('480x120') #Dimensions
-tk.Label(fenetre_taille,text='Bienvenue !',fg="Brown",font="Underline").grid(column=0,row=0)
-tk.Label(fenetre_taille,text='Entrez la taille de votre grille Mathdoku ( 4-9, ou 0 pour charger une grille sauvegardée )  :').grid(column=0,row=1)
-tk.Entry(fenetre_taille,textvariable=taille_mathdoku).grid(column=0,row=2)
-Button(fenetre_taille,text='Valider',command=fenetre_taille.destroy).grid(row=3)
-Button(fenetre_taille,text='Quitter', fg='Red',command=fenetre_taille.destroy).grid(row=4)
+Tk.Label(fenetre_taille,text='Bienvenue !',fg="Brown",font="Underline").grid(column=0,row=0)
+Tk.Label(fenetre_taille,text='Entrez la taille de votre grille Mathdoku ( 4-9, ou 0 pour charger une grille sauvegardee )  :').grid(column=0,row=1)
+Tk.Entry(fenetre_taille,textvariable=taille_mathdoku).grid(column=0,row=2)
+Tk.Button(fenetre_taille,text='Valider',command=fenetre_taille.destroy).grid(row=3)
+Tk.Button(fenetre_taille,text='Quitter', fg='Red',command=fenetre_taille.destroy).grid(row=4)
 fenetre_taille.mainloop() #Affichage.
-taille=taille_mathdoku.get() # Variable à récupérer, ie : taille de la grille.
+taille=taille_mathdoku.get() # Variable a recuperer, ie : taille de la grille.
 
 """
 """
@@ -50,9 +49,9 @@ def cancel():
             colonne=coordonnee[1]
             Matrice_affichage[ligne,colonne]=domaine[0]
     print("__________________________________")
-    print(Matrice_affichage) #Affiche les domaines avec leur coordonnées;
+    print(Matrice_affichage) #Affiche les domaines avec leur coordonnees;
     print("__________________________________")
-    print('Le dernier domaine a été supprimé.')
+    print('Le dernier domaine a ete supprime.')
     print("__________________________________")
 
 
@@ -60,19 +59,19 @@ def cancel():
 def sift():
     fenetre.quit()
     coordonnee=[]
-    for i in range(0,taille*taille): #pour vérifier
+    for i in range(0,taille*taille): #pour verifier
         if (liste_variable[i].get()==1)&((i//taille,i%taille) not in coordonnee)&((i//taille,i%taille) not in coordonnee_bilan):
-        #Dans ce cas, le bouton est coché et la coordonnée n'est pas déjà  dans les listes
+        #Dans ce cas, le bouton est coche et la coordonnee n'est pas deja  dans les listes
             coordonnee.append((i//taille,i%taille))
-        #entre la ligne, ie le quotient du numéro de variable par la taille, et le reste comme colonne.
+        #entre la ligne, ie le quotient du numero de variable par la taille, et le reste comme colonne.
             coordonnee_bilan.append((i//taille,i%taille))
-    total=total_domaine.get() #récupère la valeur dans le champ de saisie
+    total=total_domaine.get() #recupere la valeur dans le champ de saisie
     tuple_domaine=(total,coordonnee)
-    # Pour créer le tuple qui apparaitra dans la liste finale (liste_domaine)
+    # Pour creer le tuple qui apparaitra dans la liste finale (liste_domaine)
     if coordonnee==[]:
-        print('Veuillez sélectionner les cases du domaine !')
+        print('Veuillez selectionner les cases du domaine !')
     else:
-        liste_domaine.append(tuple_domaine) #compléte la liste finale
+        liste_domaine.append(tuple_domaine) #complete la liste finale
         Matrice_affichage=zeros((taille,taille),int)
         for domaine in liste_domaine:
             liste_coordonnee=domaine[1]
@@ -81,9 +80,9 @@ def sift():
                 colonne=coordonnee[1]
                 Matrice_affichage[ligne,colonne]=domaine[0]
         print("_____________________________________________________________________")
-        print('Ce domaine a été enregistré, pour l\'instant, voici votre grille :')
+        print('Ce domaine a ete enregistre, pour l\'instant, voici votre grille :')
         print("_____________________________________________________________________")
-        print(Matrice_affichage) #domaines + coordonnées
+        print(Matrice_affichage) #domaines + coordonnees
         print("_____________________________________________________________________")
         print('Veuillez remplir les domaines restants.')
         print("_____________________________________________________________________")
@@ -93,11 +92,11 @@ def sift():
 
 """Pour le chargement et la sauvegarde"""
 
-def save(): #Sauvegarde d'une grille, là intervient la fonction pickle!
-    num_sauve=numero_sauve.get() #L'entier qu'on récupère, pour lequel la grille est enregistrée .
+def save(): #Sauvegarde d'une grille, la intervient la fonction pickle!
+    num_sauve=numero_sauve.get() #L'entier qu'on recupere, pour lequel la grille est enregistree .
     nom_sauve='sauvegarde mathdoku n°' + str(num_sauve)
-    with open(nom_sauve,"wb") as fichier_sauvegarde: #Manipulations du fichier (création - sauvegarde)
-        liste_sauvegarde=pickle.Pickler(fichier_sauvegarde) #Stockage de la liste grâce à la fonction 'pickle'
+    with open(nom_sauve,"wb") as fichier_sauvegarde: #Manipulations du fichier (creation - sauvegarde)
+        liste_sauvegarde=pickle.Pickler(fichier_sauvegarde) #Stockage de la liste grâce a la fonction 'pickle'
         liste_sauvegarde.dump(liste_domaine)
     sauvegarde.quit()
 
@@ -107,62 +106,62 @@ def upload(): #Chargement d'une grille, en cas d'existence
     with open(nom_charge,'rb') as fichier_sauvegarde :
         lecture=pickle.load(fichier_sauvegarde)
     chargement.quit()
-    return lecture #renvoie la liste sauvegardée dans le fichier
+    return lecture #renvoie la liste sauvegardee dans le fichier
 
 """ Saisie de la grille """
 
 
-if (taille_mathdoku.get()<10)&(taille_mathdoku.get()>3): #On s'assure que la taille entrée est bien conforme aux règles du jeu
+if (taille_mathdoku.get()<10)&(taille_mathdoku.get()>3): #On s'assure que la taille entree est bien conforme aux regles du jeu
     saisie_domaine=True
-    fenetre=tk.Tk()
+    fenetre=Tk.Tk()
     fenetre.title('Saisie de la grille')
     var='variable'
     liste_variable=[] #Pour les checkbox
-    for nombre in range(0,taille*taille): #création d'une liste du type : var_1, var_2 ... var_n
+    for nombre in range(0,taille*taille): #creation d'une liste du type : var_1, var_2 ... var_n
         chaine=str(nombre)  #Concatenation
         liste_variable.append(var+chaine)
-        liste_variable[nombre]=IntVar() #Conversion du type pour exploiter dans les checkbox
+        liste_variable[nombre]=Tk.IntVar() #Conversion du type pour exploiter dans les checkbox
 
-    #Grille aux dimensions voulues i.e : n*n ( en utilisant les checkbox) à l'aide de 2boucles for
+    #Grille aux dimensions voulues i.e : n*n ( en utilisant les checkbox) a l'aide de 2boucles for
     for ligne in range(0,taille):
         for colonne in range(0,taille):
-            Checkbutton(fenetre,
+            Tk.Checkbutton(fenetre,
                         variable=liste_variable[ligne*taille+colonne]).grid(column=colonne,row=ligne)
 
-    tk.Label(fenetre,
+    Tk.Label(fenetre,
              text="Total du domaine :",
              font='Bold').grid(column=taille,row=1)
-    tk.Label(fenetre,
+    Tk.Label(fenetre,
              text="Remarque : Votre grille s'actualise dans la console",
              font='Bold', fg='Red').grid(column=taille+1,row=taille)
-    total_domaine=IntVar() #Entier à récupérer
-    tk.Entry(fenetre,textvariable=total_domaine).grid(column=taille+1,row=1)#champ de saisie du total
+    total_domaine=Tk.IntVar() #Entier a recuperer
+    Tk.Entry(fenetre,textvariable=total_domaine).grid(column=taille+1,row=1)#champ de saisie du total
 
-    Button(fenetre,
+    Tk.Button(fenetre,
            text='Quitter',command=fenetre.destroy,
            fg='Red').grid(column=taille+2,row=taille-3)
-    Button(fenetre,
+    Tk.Button(fenetre,
            text='Valider',command=sift).grid(column=taille,row=taille-3)
-    Button(fenetre,
+    Tk.Button(fenetre,
            text='Annuler',command=cancel).grid(column=taille+1,row=taille-3)
 
 
 
-elif taille_mathdoku.get()==0: #Dans ce cas, il est nécessaire de charger une grille stockée
+elif taille_mathdoku.get()==0: #Dans ce cas, il est necessaire de charger une grille stockee
     saisie_domaine=False #On sort du while
-    chargement=tk.Tk()
+    chargement=Tk.Tk()
     chargement.title("Chargement d'une grille ")
     chargement.geometry('300x60')
-    numero_charge=IntVar()
+    numero_charge=Tk.IntVar()
 
-    tk.Label(chargement,
+    Tk.Label(chargement,
              text='Charger la grille numero :').grid(column=0,row=0)
-    tk.Entry(chargement,
+    Tk.Entry(chargement,
              textvariable=numero_charge).grid(column=1,row=0)
-    Button(chargement,
+    Tk.Button(chargement,
            text='Quitter',command=chargement.destroy,
            fg='Red').grid(column=1,row=1)
-    Button(chargement,
+    Tk.Button(chargement,
            text='Charger',command=upload).grid(column=0,row=1)
 
     chargement.mainloop()
@@ -177,28 +176,28 @@ while saisie_domaine==True : #Plus rapide en saisissant tout les domaines dans u
     compteur=0
     for ligne in range(0,taille):
         for colonne in range(0,taille):
-            if (ligne,colonne) in coordonnee_bilan: #Dans ce cas, tous les checkbox ont été remplis
+            if (ligne,colonne) in coordonnee_bilan: #Dans ce cas, tous les checkbox ont ete remplis
                 compteur+=1
     if compteur==taille*taille:
         saisie_domaine=False
-        print('Veuillez répondre par "oui" ou "non"')
-        grille_finie=input(" -Voulez-vous confirmer la grille rentrée ? ")
+        print('Veuillez repondre par "oui" ou "non"')
+        grille_finie=raw_input(" -Voulez-vous confirmer la grille rentree ? ")
         if grille_finie=='oui':
-            question_sauvegarde=input(" -Souhaitez vous sauvegarder la grille ? ")
+            question_sauvegarde=raw_input(" -Souhaitez vous sauvegarder la grille ? ")
         else:
             saisie_domaine=True
             cancel()
             question_sauvegarde='non'
-        if question_sauvegarde=='oui': #Sinon, il n'y a plus rien à faire !
+        if question_sauvegarde=='oui': #Sinon, il n'y a plus rien a faire !
             fenetre.destroy()
-            sauvegarde=tk.Tk()
-            numero_sauve=IntVar()
-            tk.Label(sauvegarde,text='Sauvegarder sous le numéro :').grid(column=0,row=0)
-            tk.Entry(sauvegarde,textvariable=numero_sauve).grid(column=1,row=0)
-            Button(sauvegarde,text='Quitter',command=sauvegarde.destroy, fg='Red').grid(column=1,row=1)
-            Button(sauvegarde,text='Sauvegarder',command=save).grid(column=0,row=1)
+            sauvegarde=Tk.Tk()
+            numero_sauve=Tk.IntVar()
+            Tk.Label(sauvegarde,text='Sauvegarder sous le numero :').grid(column=0,row=0)
+            Tk.Entry(sauvegarde,textvariable=numero_sauve).grid(column=1,row=0)
+            Tk.Button(sauvegarde,text='Quitter',command=sauvegarde.destroy, fg='Red').grid(column=1,row=1)
+            Tk.Button(sauvegarde,text='Sauvegarder',command=save).grid(column=0,row=1)
             sauvegarde.mainloop()
-            #sauvegarde.destroy avec précaution ...
+            #sauvegarde.destroy avec precaution ...
 
     else: #S'il reste des checkbox.
         fenetre.mainloop()
@@ -208,7 +207,7 @@ print(liste_domaine)
 Fin de l'interface
 """
 
-cpt=0 #Compteur d'itérations
+cpt=0 #Compteur d'iterations
 for domaine in liste_domaine:
     cpt+=len(domaine[1])
 cpt=cpt**0.5
@@ -222,7 +221,7 @@ def test_ligne_colonne(domaine,combinaison): #Test ligne et colonne en même tem
     Matrice=zeros((taille,taille),int)
     for iteration in range(0,len(domaine)):  #Remplissage du domaine avec la combinaison.
         Matrice[domaine[iteration][0],domaine[iteration][1]]=combinaison[iteration]
-    for element,coordonnee in zip(combinaison,domaine): #pour chaque élement de la combinaison et sa coordonnée.
+    for element,coordonnee in zip(combinaison,domaine): #pour chaque element de la combinaison et sa coordonnee.
         for n in range(0,taille): #test colonne
             if (Matrice[coordonnee[0],n]==element)&(n!=coordonnee[1]):
                 return False
@@ -235,11 +234,11 @@ def test_ligne_colonne(domaine,combinaison): #Test ligne et colonne en même tem
     #end def
 
 def combinaison(total,domaine): # Fonction " corps " du programme.
-    liste_combinaison=[] #liste retournée.
+    liste_combinaison=[] #liste retournee.
     possibilite=[]
-    var='élement'
+    var='element'
     liste_element=[]
-    for nombre in range(0,len(domaine)): #création de la combinaison pour addition, soustraction et division.
+    for nombre in range(0,len(domaine)): #creation de la combinaison pour addition, soustraction et division.
         chaine=str(nombre)
         liste_element.append(var+chaine)
         liste_element[nombre]=1
@@ -272,9 +271,9 @@ def combinaison(total,domaine): # Fonction " corps " du programme.
                 if (test_ligne_colonne(domaine,solution2_sous))&(solution2_sous not in liste_combinaison):
                     liste_combinaison.append(solution2_sous)
 
-            if liste_element[0]<taille: #Incrémentation du 1er élement.
+            if liste_element[0]<taille: #Incrementation du 1er element.
                 liste_element[0]+=1
-            elif (liste_element[0]==taille)&(liste_element[1]<taille): #2ème élement.
+            elif (liste_element[0]==taille)&(liste_element[1]<taille): #2eme element.
                 liste_element[0]=1
                 liste_element[1]+=1
             else: #On a atteint le maximum, donc on sort du while.
@@ -294,13 +293,13 @@ def combinaison(total,domaine): # Fonction " corps " du programme.
    #addition. Ca avance ..
 
     if taille*len(domaine)>=total: #L'addition est possible.
-        for nombre in range(0,len(domaine)): #Création de la combinaison.
+        for nombre in range(0,len(domaine)): #Creation de la combinaison.
             liste_element[nombre]=1 #Au cas cas où il y aurait eu une soustraction.
 
         somme=0
         while somme!=taille*len(domaine):
-            somme=0 #Ré-initialisation.
-            for element in liste_element: #Vérification.
+            somme=0 #Re-initialisation.
+            for element in liste_element: #Verification.
                 somme+=element
             if (somme==total): #Combinaison royale.
 
@@ -321,26 +320,26 @@ def combinaison(total,domaine): # Fonction " corps " du programme.
 """
 
 
-#On va maintenant créer et ordonner la liste pour la résolution.
+#On va maintenant creer et ordonner la liste pour la resolution.
 
-def genèse(liste):
+def genese(liste):
     var='info_domaine'
     liste_info=[]
     for i in range(0,len(liste)):
         chaine=str(i)
         liste_info.append(var+chaine)
-        liste_info[i]=(liste[i][1],combinaison(liste[i][0],liste[i][1])) #Coordonnée puis combinaison.
+        liste_info[i]=(liste[i][1],combinaison(liste[i][0],liste[i][1])) #Coordonnee puis combinaison.
     liste_domaine_ordonnee=sorted(liste_info,key=lambda x:len(x[1]))
     return liste_domaine_ordonnee
 
-liste_domaine_ordonnee=genèse(liste_domaine)
+liste_domaine_ordonnee=genese(liste_domaine)
 print(liste_domaine_ordonnee)
 
 """
 
 """
 
-#étape de la résolution.
+#etape de la resolution.
 
 def test_remplissage(domaine,combinaison,Matrice):
     matrice=Matrice.copy()
@@ -369,7 +368,7 @@ def fill_in(tuple_ordonne,indice,M): #Combinaison par combinaison.
     liste_parcours[indice]+=1
     liste_coordonnee=tuple_ordonne[0]
     liste_combinaison=tuple_ordonne[1]
-    while liste_parcours[indice]<len(liste_combinaison): #Boucle tant qu'il y a toujours des combinaisons à essayer.
+    while liste_parcours[indice]<len(liste_combinaison): #Boucle tant qu'il y a toujours des combinaisons a essayer.
         if test_remplissage(liste_coordonnee,liste_combinaison[liste_parcours[indice]],M): #Si ça colle, on remplit.
             for iteration in range(0,len(liste_coordonnee)):
                 M[liste_coordonnee[iteration][0],liste_coordonnee[iteration][1]]=liste_combinaison[liste_parcours[indice]][iteration]
@@ -393,7 +392,7 @@ def resolution(liste_domaine_ord):
         liste_parcours.append(-1) #-1 pour aucune combinaison.
     M=zeros((taille,taille),int)
     indice=0
-    print("La grille est en cours de résolution ... Veuillez patienter. " )
+    print("La grille est en cours de resolution ... Veuillez patienter. " )
     while True:
         if fill_in(liste_domaine_ord[indice],indice,M):
             indice+=1
