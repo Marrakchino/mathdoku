@@ -29,23 +29,23 @@ import tkFileDialog
 import pickle
 import itertools as it
 import time
+from plot import Plot
 
 
-fenetre_taille=Tk.Tk() # Creation de la fenêtre.
-taille_mathdoku=Tk.IntVar() # Variable de type 'integer' a recuperer.
-fenetre_taille.title('Resolution de Mathdoku')# Titre de la fenêtre.
-fenetre_taille.geometry('480x120') # Dimensions
+fenetre_taille=Tk.Tk() 
+taille_mathdoku=Tk.IntVar() 
+fenetre_taille.title('Mathdoku solver')
+fenetre_taille.geometry('300x120')
 Tk.Label(fenetre_taille,text='Bienvenue !',fg="Brown",font="Underline").grid(column=0,row=0)
-Tk.Label(fenetre_taille,text='Entrez la taille de votre grille Mathdoku ( 4-9, ou 0 pour charger une grille sauvegardee )  :').grid(column=0,row=1)
+Tk.Label(fenetre_taille,text='Enter the grid size (4 - 9), 0 to load a saved grid.').grid(column=0,row=1)
 Tk.Entry(fenetre_taille,textvariable=taille_mathdoku).grid(column=0,row=2)
-Tk.Button(fenetre_taille,text='Valider',command=fenetre_taille.destroy).grid(row=3)
-Tk.Button(fenetre_taille,text='Quitter', fg='Red',command=fenetre_taille.destroy).grid(row=4)
-fenetre_taille.mainloop() # Affichage.
-taille=taille_mathdoku.get() #  Variable a recuperer, ie : taille de la grille.
+Tk.Button(fenetre_taille,text='Fill',command=fenetre_taille.destroy).grid(row=3)
+Tk.Button(fenetre_taille,text='Exit', fg='Red',command=fenetre_taille.destroy).grid(row=4)
+fenetre_taille.mainloop()
+taille=taille_mathdoku.get()
 
 liste_domaine=list() 
 coordonnee_bilan=list()
-
 
 def cancel():
     suppression=liste_domaine.pop()[1]
@@ -100,28 +100,7 @@ def sift():
         print("_____________________________________________________________________")
 
 
-def save(): 
-    f = tkFileDialog.asksaveasfile(mode='w', initialdir='/')
-    liste_sauvegarde = pickle.Pickler(f)
-    liste_sauvegarde.dump(liste_domaine)
-    f.close()
-
-def upload(): # Chargement d'une grille, en cas d'existence
-    f = tkFileDialog.askopenfile(mode='r', initialdir='/')
-    fname = f.name
-    f.close()
-    return pickle.load(file(fname))
-
-#     num_charge=numero_charge.get()
-#     nom_charge='sauvegarde mathdoku n° '+ str(num_charge)
-#     with open(nom_charge,'rb') as fichier_sauvegarde :
-#         lecture=pickle.load(fichier_sauvegarde)
-#     chargement.quit()
-#     return lecture # renvoie la liste sauvegardee dans le fichier
-
-""" Saisie de la grille """
-
-if (taille_mathdoku.get()<10)&(taille_mathdoku.get()>3): # On s'assure que la taille entree est bien conforme aux regles du jeu
+if (taille_mathdoku.get() < 10) and (taille_mathdoku.get() > 3): 
     saisie_domaine=True
     fenetre=Tk.Tk()
     fenetre.title('Saisie de la grille')
@@ -156,15 +135,16 @@ if (taille_mathdoku.get()<10)&(taille_mathdoku.get()>3): # On s'assure que la ta
            text='Annuler',command=cancel).grid(column=taille+1,row=taille-3)
 
 
-
-elif taille_mathdoku.get()==0: # Dans ce cas, il est necessaire de charger une grille stockee
+elif taille_mathdoku.get()==0: 
     saisie_domaine=False # On sort du while
-    liste_domaine=upload()
+    p = Plot()
+    liste_domaine=p.load()
 
-
+# TODO: FIX
 else :
     fenetre_taille.quit()
-    print("Veuillez entrer une dimension conforme !") # Un peu de respect ..!
+    print("Veuillez entrer une dimension conforme !") 
+    exit()
 
 while saisie_domaine==True : # Plus rapide en saisissant tout les domaines dans une même fenêtre
     compteur=0
@@ -182,9 +162,10 @@ while saisie_domaine==True : # Plus rapide en saisissant tout les domaines dans 
             saisie_domaine=True
             cancel()
             question_sauvegarde='non'
-        if question_sauvegarde=='oui': # Sinon, il n'y a plus rien a faire !
+        if question_sauvegarde=='oui': 
             fenetre.destroy()
-            save()
+            p = Plot()
+            p.save(liste_domaine)
 
     else: # S'il reste des checkbox.
         fenetre.mainloop()
